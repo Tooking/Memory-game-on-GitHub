@@ -24,7 +24,8 @@ body{
   grid-gap: 10px;
 }
 
-.content-game-card{
+.content-game-card-close,
+.content-game-card-open{
   background-color: yellow;
   border-radius: 5%;
   border: 1px solid black;
@@ -33,7 +34,7 @@ body{
   position: relative;
 }
 
-.content-game-card:before{
+.content-game-card-close:before{
   content: '';
   position: absolute;
   display: block;
@@ -45,7 +46,8 @@ body{
   top: 0;
 }
 
-.content-game-card:hover{
+.content-game-card:hover,
+.content-game-card-open{
   cursor: pointer;
 }
 
