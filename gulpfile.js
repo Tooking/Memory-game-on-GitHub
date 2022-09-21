@@ -29,34 +29,7 @@ const {
     watch('assets/js/**/*.js', jsMin).on('change', browserSync.reload);
   });
   
-  
-  
-  // Transpile Bootstrap sass files into css and minify them
-  // (you should run it manually)
-  function bootstrap() {
-    return src('assets/sass/bootstrap/bootstrap.scss')
-      .pipe(sass())
-      .pipe(dest('css'))
-      .pipe(fileSize())
-  }
-  
-  // Copy Bootstrap js files into working directory
-  function bootstrapjs() {
-    return src('node_modules/bootstrap/dist/js/bootstrap.min.js')
-      .pipe(dest('js'))
-      .pipe(fileSize())
-  }
-  
   // Tasks for building
-  
-  // Minify HTML for building
-  async function htmlMin() {
-    return src('./*.html')
-      .pipe(htmlmin({
-        collapseWhitespace: true
-      }))
-      .pipe(dest('html-min'))
-  }
   
   // Minify CSS for building
   async function cssMin() {
@@ -69,7 +42,7 @@ const {
       .pipe(rename({
         suffix: '.min'
       }))
-      .pipe(dest('css'))
+      .pipe(dest('dist'))
       .pipe(fileSize())
   }
   
@@ -96,15 +69,12 @@ const {
       .pipe(rename({
         suffix: '.min'
       }))
-      .pipe(dest('js'))
+      .pipe(dest('dist'))
       .pipe(fileSize())
   }
-  
-  exports.bootstrap = bootstrap
-  exports.bootstrapjs = bootstrapjs
+
   exports.cssMin = cssMin
   exports.jsMin = jsMin
-  exports.htmlMin = htmlMin
   
   exports.default = series(cssMin, jsMin, task('bsync'))
-  exports.build = parallel(htmlMin, cssMin, jsMin)
+  exports.build = parallel(cssMin, jsMin)
